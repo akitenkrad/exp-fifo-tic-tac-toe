@@ -30,6 +30,7 @@ uv run fifo-ttt-tools plot --rule t3 --scratch
 - [Rules](docs/rules.md) — caps, the three timing rules `t1`/`t2`/`t3`, how a game ends
 - [Usage](docs/usage.md) — the `fifo-ttt` subcommands, scratch and production runs, the Python tools
 - [Method](docs/method.md) — state representation, retrograde analysis, the move horizon, the naive search, and the checks
+- [Proof](docs/proof.md) — a hand proof that T3 with both caps at 3 is a first-player win in exactly 13 plies
 - [Architecture](docs/architecture.md) — source layout, the socsim game loop, and what each run records
 
 ## License

@@ -44,8 +44,10 @@ Every subcommand except `show` records its results with [runvault](https://githu
 |---|---|
 | `config.json` | Rule, first player, horizon, caps, and (for `naive`/`play`) node cap, number of games, policies and seed |
 | `metrics.csv` | One row per metric; per-condition metrics are named `{metric}.kx{a}_ko{b}` (for example `value.kx3_ko3`) |
-| `events.jsonl` | Moves (`x.fifo-tic-tac-toe.ply`) and game ends (`x.fifo-tic-tac-toe.game_end`) of the recorded games |
+| `events.jsonl` | Moves (`x.exp-fifo-tic-tac-toe.ply`) and game ends (`x.exp-fifo-tic-tac-toe.game_end`) of the recorded games |
 | `artifacts/best_moves.csv` | Optimal first moves per condition (`kx, ko, class_id, cells, value_after_x, plies_after`; cells are 0-based and `|`-separated) |
 | `logs/` | Progress and check details |
+
+Runs recorded before the repository ID change retain the legacy `x.fifo-tic-tac-toe.*` event namespace.
 
 The metric names and their meaning are declared in [`runvault.toml`](../runvault.toml). Values are reported from `X`'s point of view (`+1` win, `0` draw, `−1` loss). `plies.{cond}` is omitted for draws, `n_games.{cond}` is omitted when the state graph has cycles, and `naive_nodes.{cond}` is omitted when the naive search hit the node cap.

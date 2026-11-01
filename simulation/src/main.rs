@@ -447,7 +447,7 @@ fn all_command(scratch: bool) -> Result<(), Box<dyn Error>> {
         "children": specs.len(),
     });
     let options = RunOptions::new("fifo-ttt", "all")
-        .repo_id("fifo-tic-tac-toe")
+        .repo_id("exp-fifo-tic-tac-toe")
         .domain("analysis")
         .scratch(scratch)
         .parameters(&parameters)?

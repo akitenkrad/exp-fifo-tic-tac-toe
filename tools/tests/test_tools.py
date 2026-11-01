@@ -11,7 +11,7 @@ import pytest
 
 from fifo_ttt_tools import plot as plot_module
 from fifo_ttt_tools.labels_ja import label_ja
-from fifo_ttt_tools.load import load_naive_runs, load_solve_runs
+from fifo_ttt_tools.load import load_naive_runs, load_principal_variations, load_solve_runs
 from fifo_ttt_tools.plot import plot_lines, plot_table
 from fifo_ttt_tools import style
 from fifo_ttt_tools.table import render_naive_table, render_result_table, write_tables
@@ -46,8 +46,8 @@ def _write_solve_run(path: Path, rule: str) -> None:
                 rows.append({"scope": "run", "step": None, "name": f"plies.kx{kx}_ko{ko}", "value": 7})
     pd.DataFrame(rows).to_csv(path / "metrics.csv", index=False)
     events = [
-        {"schema": "x.fifo-tic-tac-toe.ply", "unit_id": "pv.kx3_ko3", "t": 1, "cell": 4},
-        {"schema": "x.fifo-tic-tac-toe.game_end", "unit_id": "pv.kx3_ko3", "t": 7, "reason": "line"},
+        {"schema": "x.exp-fifo-tic-tac-toe.ply", "unit_id": "pv.kx3_ko3", "t": 1, "cell": 4},
+        {"schema": "x.exp-fifo-tic-tac-toe.game_end", "unit_id": "pv.kx3_ko3", "t": 7, "reason": "line"},
     ]
     (path / "events.jsonl").write_text("".join(json.dumps(event) + "\n" for event in events))
 
@@ -142,6 +142,19 @@ def test_load_plot_and_table_from_runvault_layout(tmp_path: Path) -> None:
     table_files = write_tables(frame, runs[-1])
     assert len(table_files) == 8
     assert all(path.exists() for path in table_files)
+
+
+def test_load_principal_variations_accepts_legacy_event_namespace(tmp_path: Path) -> None:
+    run = tmp_path / "fifo-ttt" / "run-t3"
+    _write_solve_run(run, "t3")
+    events_path = run / "events.jsonl"
+    events_path.write_text(events_path.read_text().replace("x.exp-fifo-tic-tac-toe.", "x.fifo-tic-tac-toe."))
+
+    frame = load_solve_runs(run_dirs=[run])
+    variations = load_principal_variations(frame)
+
+    assert variations.loc[0, "pv"] == "4"
+    assert variations.loc[0, "reason"] == "line"
 
 
 def test_plot_lines_uses_two_panels_and_breaks_distance_lines_at_draws(

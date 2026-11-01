@@ -30,6 +30,7 @@ uv run fifo-ttt-tools plot --rule t3 --scratch
 - [ルール](docs/rules.ja.md) — 上限，消えるタイミングの 3 規則 `t1`/`t2`/`t3`，対局の終わり方
 - [使い方](docs/usage.ja.md) — `fifo-ttt` のサブコマンド，scratch と本番の run，Python のツール
 - [解き方](docs/method.ja.md) — 局面の表し方，後退解析，手数の上限，素朴な探索，検査
+- [証明](docs/proof.ja.md) — T3・両者の上限 3 で先手の勝ちがちょうど 13 手になることの，人の手による証明
 - [構成](docs/architecture.ja.md) — ソースの構成，socsim での対局，run に記録するもの
 
 ## ライセンス

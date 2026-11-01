@@ -44,7 +44,7 @@ impl Recorder for SharedRecorder {
 pub fn start_run(subcommand: &str, parameters: &Value, label: &str, scratch: bool) -> RecordResult<(RunvaultRecorder, RunHandle)> {
     start_run_from_options(
         RunOptions::new("fifo-ttt", subcommand)
-            .repo_id("fifo-tic-tac-toe")
+            .repo_id("exp-fifo-tic-tac-toe")
             .domain("analysis")
             .scratch(scratch)
             .parameters(parameters)?
@@ -62,7 +62,7 @@ pub fn start_sweep_child(
     total: usize,
 ) -> RecordResult<(RunvaultRecorder, RunHandle)> {
     let options = RunOptions::new("fifo-ttt", "solve")
-        .repo_id("fifo-tic-tac-toe")
+        .repo_id("exp-fifo-tic-tac-toe")
         .domain("analysis")
         .scratch(scratch)
         .parameters(parameters)?
@@ -78,7 +78,7 @@ pub fn start_sweep_child(
 
 pub fn start_play_run(parameters: &Value, label: &str, scratch: bool, seed: u64) -> RecordResult<(RunvaultRecorder, RunHandle)> {
     let options = RunOptions::new("fifo-ttt", "play")
-        .repo_id("fifo-tic-tac-toe")
+        .repo_id("exp-fifo-tic-tac-toe")
         .domain("simulation")
         .scratch(scratch)
         .parameters(parameters)?

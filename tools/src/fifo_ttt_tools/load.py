@@ -25,6 +25,8 @@ except ImportError:
     _rv_run_scope_metrics = None
 
 CONDITION_RE = re.compile(r"^(?P<metric>[a-z0-9_]+)\.kx(?P<kx>1|2|3|4|inf)_ko(?P<ko>1|2|3|4|inf)$")
+EVENT_NAMESPACE = "exp-fifo-tic-tac-toe"
+LEGACY_EVENT_NAMESPACE = "fifo-tic-tac-toe"
 
 
 def _config_parameters(run_dir: Path) -> dict:
@@ -201,8 +203,16 @@ def load_principal_variations(frame: pd.DataFrame, rule: str = "t3") -> pd.DataF
         for condition in selected[selected["run_dir"] == run_dir_text].itertuples():
             unit_id = f"pv.kx{condition.kx}_ko{condition.ko}"
             game = events[events["unit_id"] == unit_id].sort_values("t")
-            plies = game[game["schema"] == "x.fifo-tic-tac-toe.ply"]
-            endings = game[game["schema"] == "x.fifo-tic-tac-toe.game_end"]
+            plies = game[
+                game["schema"].isin(
+                    (f"x.{EVENT_NAMESPACE}.ply", f"x.{LEGACY_EVENT_NAMESPACE}.ply")
+                )
+            ]
+            endings = game[
+                game["schema"].isin(
+                    (f"x.{EVENT_NAMESPACE}.game_end", f"x.{LEGACY_EVENT_NAMESPACE}.game_end")
+                )
+            ]
             if endings.empty:
                 raise ValueError(f"Missing game_end event for {unit_id} in {run_dir}")
             rows.append(

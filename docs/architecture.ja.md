@@ -44,8 +44,10 @@
 |---|---|
 | `config.json` | 規則・先手・手数の上限・上限の値．`naive`/`play` ではノード数の上限・局数・方策・seed |
 | `metrics.csv` | 指標 1 つにつき 1 行．条件ごとの指標は `{指標}.kx{a}_ko{b}` (例 `value.kx3_ko3`) |
-| `events.jsonl` | 記録した対局の着手 (`x.fifo-tic-tac-toe.ply`) と終局 (`x.fifo-tic-tac-toe.game_end`) |
+| `events.jsonl` | 記録した対局の着手 (`x.exp-fifo-tic-tac-toe.ply`) と終局 (`x.exp-fifo-tic-tac-toe.game_end`) |
 | `artifacts/best_moves.csv` | 条件ごとの初手の最善手 (`kx, ko, class_id, cells, value_after_x, plies_after`．`cells` は 0 始まりで `|` 区切り) |
 | `logs/` | 進捗と検査の詳細 |
+
+リポジトリ ID の変更前に記録した run は，旧イベント名前空間 `x.fifo-tic-tac-toe.*` のままである．
 
 指標の名前と意味は [`runvault.toml`](../runvault.toml) に宣言している．値は `X` から見て書く (`+1` 勝ち，`0` 引き分け，`−1` 負け)．`plies.{cond}` は引き分けなら書かず，`n_games.{cond}` は局面のグラフに閉路があれば書かず，`naive_nodes.{cond}` は素朴な探索が上限に達したら書かない．
