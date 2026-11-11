@@ -20,6 +20,14 @@ members = [
 ]
 
 [[package]]
+name = "blog-figure-style"
+version = "0.1.0"
+source = { git = "https://github.com/akitenkrad/blog-figure-style?tag=v0.1.0#e3f318013fe04f3ce255020d1b3025525eb42c12" }
+dependencies = [
+    { name = "matplotlib" },
+]
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 source = { registry = "https://pypi.org/simple" }
@@ -217,22 +225,24 @@ name = "fifo-ttt-tools"
 version = "0.1.0"
 source = { editable = "tools" }
 dependencies = [
+    { name = "blog-figure-style" },
     { name = "matplotlib" },
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "pandas" },
 ]
 
-[package.metadata]
-requires-dist = [
-    { name = "matplotlib", specifier = ">=3.8" },
-    { name = "numpy", specifier = ">=1.26" },
-    { name = "pandas", specifier = ">=2.2" },
-]
-
 [package.dev-dependencies]
 dev = [
     { name = "pytest" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "blog-figure-style", git = "https://github.com/akitenkrad/blog-figure-style?tag=v0.1.0" },
+    { name = "matplotlib", specifier = ">=3.8" },
+    { name = "numpy", specifier = ">=1.26" },
+    { name = "pandas", specifier = ">=2.2" },
 ]
 
 [package.metadata.requires-dev]
